@@ -20,13 +20,13 @@ class _ProudictPageState extends State<ProudictPage> {
   final List<Map<String, dynamic>> bannerItems = [
     {
       'image': 'assets/images/Image Banner 2.png',
-      'name': 'Laptop Pro X',
-      'brandNumber': 'BN-101',
+      'name': 'Smartphone',
+      'brandNumber': '18 Brands',
     },
     {
       'image': 'assets/images/Image Banner 3.png',
-      'name': 'Smartphone Z5',
-      'brandNumber': 'BN-102',
+      'name': 'Fashion',
+      'brandNumber': '24 Brands',
     },
   ];
 
@@ -426,12 +426,7 @@ Widget popularProduct({
 
 Widget _buildMenuItem(BuildContext context, String iconPath, String title) {
   return InkWell(
-    onTap: () {
-      Navigator.push(
-        context,
-        _createRoute(detailPage(title: title, iconPath: iconPath)),
-      );
-    },
+    onTap: () {},
     borderRadius: BorderRadius.circular(16),
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -461,63 +456,6 @@ Widget _buildMenuItem(BuildContext context, String iconPath, String title) {
               color: Colors.black87,
               fontWeight: FontWeight.w500,
             ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-/// Animation انتقال بين الصفحات (slide + fade)
-Route _createRoute(Widget page) {
-  return PageRouteBuilder(
-    transitionDuration: const Duration(milliseconds: 500),
-    pageBuilder: (context, animation, secondaryAnimation) => page,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(1.0, 0.0);
-      const end = Offset.zero;
-      var curve = Curves.easeInOut;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      var fadeTween = Tween<double>(begin: 0.0, end: 1.0);
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: FadeTransition(
-          opacity: animation.drive(fadeTween),
-          child: child,
-        ),
-      );
-    },
-  );
-}
-
-Widget detailPage({required String title, required String iconPath}) {
-  return Scaffold(
-    appBar: AppBar(title: Text(title), backgroundColor: Colors.deepOrange),
-    body: Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Hero(
-            tag: title,
-            child: Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                color: Colors.orange.shade50,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: SvgPicture.asset(iconPath, width: 60, height: 60),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            "Welcome to $title Page 🎉",
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       ),
