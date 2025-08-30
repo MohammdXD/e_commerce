@@ -2,13 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProudictPage extends StatefulWidget {
-  const ProudictPage({super.key});
+  const ProudictPage({super.key, required this.data});
+  final String data;
 
   @override
   State<ProudictPage> createState() => _ProudictPageState();
 }
 
 class _ProudictPageState extends State<ProudictPage> {
+  dynamic receivedData;
+
+  void initState() {
+    super.initState();
+    // Store the received data when widget is created
+    receivedData = widget.data;
+  }
+
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {

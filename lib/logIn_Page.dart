@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class logIn_Page extends StatefulWidget {
   const logIn_Page({super.key});
+
   @override
   State<logIn_Page> createState() => _logIn_PageState();
 }
@@ -34,6 +35,21 @@ class _logIn_PageState extends State<logIn_Page> {
     }
   }
 
+  void submit() {
+    if (_formkey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProudictPage(data: emailController.text),
+        ),
+      );
+    }
+  }
+
+  final _formkey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   bool isChecked = false;
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -52,39 +68,50 @@ class _logIn_PageState extends State<logIn_Page> {
               "Sign in with your email and password\n or continue with social media",
               textAlign: TextAlign.center,
             ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 70, 30, 0),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                      labelStyle: TextStyle(color: Colors.black),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      hintText: "Enter your email",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25),
+            Form(
+              key: _formkey,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 70, 30, 0),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: emailController,
+                      validator: (value) =>
+                          value == null || !value.contains("@")
+                          ? 'Email is required'
+                          : null,
+                      decoration: InputDecoration(
+                        labelText: "Email",
+                        labelStyle: TextStyle(color: Colors.black),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintText: "Enter your email",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        suffixIcon: Icon(Icons.email_outlined),
                       ),
-                      suffixIcon: Icon(Icons.email_outlined),
                     ),
-                  ),
 
-                  SizedBox(height: 30),
+                    SizedBox(height: 30),
 
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      labelStyle: TextStyle(color: Colors.black),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      hintText: "Enter your password",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25),
+                    TextFormField(
+                      controller: passwordController,
+                      validator: (value) => value == null || value.length < 6
+                          ? 'Password is required'
+                          : null,
+                      decoration: InputDecoration(
+                        labelText: "Password",
+                        labelStyle: TextStyle(color: Colors.black),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintText: "Enter your password",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        suffixIcon: Icon(Icons.lock_outline_rounded),
                       ),
-                      suffixIcon: Icon(Icons.lock_outline_rounded),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -131,12 +158,7 @@ class _logIn_PageState extends State<logIn_Page> {
               width: 330,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ProudictPage()),
-                  );
-                },
+                onPressed: submit,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xfffb7a43),
                   foregroundColor: Colors.white,

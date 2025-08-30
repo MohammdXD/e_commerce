@@ -11,6 +11,21 @@ class Complete_Profile_Page extends StatefulWidget {
 }
 
 class _CompleteProPageState extends State<Complete_Profile_Page> {
+  void submit() {
+    if (_formkey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => OTP_Page()),
+      );
+    }
+  }
+
+  final _formkey = GlobalKey<FormState>();
+  final firstnameControler = TextEditingController();
+  final lastnameControler = TextEditingController();
+  final phonenumberControler = TextEditingController();
+  final addressControler = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,131 +34,172 @@ class _CompleteProPageState extends State<Complete_Profile_Page> {
         child: Center(
           child: Column(
             children: [
-              AppBar(
-                leading: BackButton(),
-                backgroundColor: Colors.white,
+              AppBar(leading: BackButton(), backgroundColor: Colors.white),
+              SizedBox(height: 40),
+              Text(
+                "Complete Profile",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 40,),
-              Text("Complete Profile", style: TextStyle(
-                  fontSize: 28, fontWeight: FontWeight.bold),
+              Text(
+                "Complete your details or continue\nwith social media",
+                textAlign: TextAlign.center,
               ),
-              Text("Complete your details or continue\nwith social media", textAlign: TextAlign.center,),
 
-              Padding(
-                padding: EdgeInsets.fromLTRB(30, 70, 30, 100),
-                child: Column(
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: "First Name",
-                        labelStyle: TextStyle(color: Colors.black),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintText: "Enter your first Name",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25),),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: SvgPicture.asset(
-                            "assets/icons/User.svg",
-                            width: 15,
-                            height: 15,
-                            color: Colors.black,
+              Form(
+                key: _formkey,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(30, 70, 30, 30),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: firstnameControler,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter your first name";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "First Name",
+                          labelStyle: TextStyle(color: Colors.black),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          hintText: "Enter your first Name",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: SvgPicture.asset(
+                              "assets/icons/User.svg",
+                              width: 15,
+                              height: 15,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 30,),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: "Last Name",
-                        labelStyle: TextStyle(color: Colors.black),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintText: "Enter your last Name",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25),),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: SvgPicture.asset(
-                            "assets/icons/User.svg",
-                            width: 15,
-                            height: 15,
-                            color: Colors.black,
+                      SizedBox(height: 30),
+                      TextFormField(
+                        controller: lastnameControler,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter your last name";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Last Name",
+                          labelStyle: TextStyle(color: Colors.black),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          hintText: "Enter your last Name",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: SvgPicture.asset(
+                              "assets/icons/User.svg",
+                              width: 15,
+                              height: 15,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
-                    ),
 
+                      SizedBox(height: 30),
 
-                    SizedBox(height: 30,),
-
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: "Phone Number",
-                        labelStyle: TextStyle(color: Colors.black),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintText: "Enter your Phone Number",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-                        ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: SvgPicture.asset(
-                            "assets/icons/Phone.svg",
-                            width: 15,
-                            height: 15,
-                            color: Colors.black,
+                      TextFormField(
+                        controller: phonenumberControler,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter your phone number";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Phone Number",
+                          labelStyle: TextStyle(color: Colors.black),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          hintText: "Enter your Phone Number",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: SvgPicture.asset(
+                              "assets/icons/Phone.svg",
+                              width: 15,
+                              height: 15,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 30,),
+                      SizedBox(height: 30),
 
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: "Address",
-                        labelStyle: TextStyle(color: Colors.black),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintText: "Enter your Address",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-                        ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: SvgPicture.asset(
-                            "assets/icons/Location point.svg",
-                            width: 15,
-                            height: 15,
-                            color: Colors.black,
+                      TextFormField(
+                        controller: addressControler,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter your address";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Address",
+                          labelStyle: TextStyle(color: Colors.black),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          hintText: "Enter your Address",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: SvgPicture.asset(
+                              "assets/icons/Location point.svg",
+                              width: 15,
+                              height: 15,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
 
               SizedBox(
                 width: 330,
                 height: 50,
-                child: ElevatedButton(onPressed:(){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => OTP_Page()),
-                  );
-                },
-                  style:
-                  ElevatedButton.styleFrom(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OTP_Page()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xfffb7a43),
                     foregroundColor: Colors.white,
                     textStyle: TextStyle(color: Colors.white, fontSize: 20),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),),
+                      borderRadius: BorderRadius.circular(18),
+                    ),
                   ),
                   child: Text("Continue"),
                 ),
               ),
 
-              SizedBox(height: 70,),
+              SizedBox(height: 70),
 
-              Text("By continuing your confirm that you agree\nwith our Term and Condition",textAlign: TextAlign.center,)
+              Text(
+                "By continuing your confirm that you agree\nwith our Term and Condition",
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),

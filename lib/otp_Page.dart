@@ -53,62 +53,92 @@ class OTP_PageState extends State<OTP_Page> {
 
             SizedBox(height: 30),
 
-            Padding(
-              padding: EdgeInsets.fromLTRB(70, 150, 30, 100),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 50,
-                    height: 150,
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
+            Form(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(70, 150, 30, 100),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 50,
+                      height: 150,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          } else if (value.isEmpty) {
+                            FocusScope.of(context).previousFocus();
+                          }
+                        },
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 20),
-                  SizedBox(
-                    width: 50,
-                    height: 150,
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
+                    SizedBox(width: 20),
+                    SizedBox(
+                      width: 50,
+                      height: 150,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          } else if (value.isEmpty) {
+                            FocusScope.of(context).previousFocus();
+                          }
+                        },
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 20),
-                  SizedBox(
-                    width: 50,
-                    height: 150,
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
+                    SizedBox(width: 20),
+                    SizedBox(
+                      width: 50,
+                      height: 150,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          } else if (value.isEmpty) {
+                            FocusScope.of(context).previousFocus();
+                          }
+                        },
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 20),
-                  SizedBox(
-                    width: 50,
-                    height: 150,
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
+                    SizedBox(width: 20),
+                    SizedBox(
+                      width: 50,
+                      height: 150,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          } else if (value.isEmpty) {
+                            FocusScope.of(context).previousFocus();
+                          }
+                        },
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
