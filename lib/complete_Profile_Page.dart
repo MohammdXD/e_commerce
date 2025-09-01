@@ -53,12 +53,9 @@ class _CompleteProPageState extends State<Complete_Profile_Page> {
                     children: [
                       TextFormField(
                         controller: firstnameControler,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please enter your first name";
-                          }
-                          return null;
-                        },
+                        validator: (value) => (value == null || value.isEmpty)
+                            ? 'please enter your first name'
+                            : null,
                         decoration: InputDecoration(
                           labelText: "First Name",
                           labelStyle: TextStyle(color: Colors.black),
@@ -82,12 +79,9 @@ class _CompleteProPageState extends State<Complete_Profile_Page> {
                       SizedBox(height: 30),
                       TextFormField(
                         controller: lastnameControler,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please enter your last name";
-                          }
-                          return null;
-                        },
+                        validator: (value) => (value == null || value.isEmpty)
+                            ? 'please enter your last name'
+                            : null,
                         decoration: InputDecoration(
                           labelText: "Last Name",
                           labelStyle: TextStyle(color: Colors.black),
@@ -112,12 +106,9 @@ class _CompleteProPageState extends State<Complete_Profile_Page> {
 
                       TextFormField(
                         controller: phonenumberControler,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please enter your phone number";
-                          }
-                          return null;
-                        },
+                        validator: (value) => (value == null || value.isEmpty)
+                            ? 'please enter your phone number'
+                            : null,
                         decoration: InputDecoration(
                           labelText: "Phone Number",
                           labelStyle: TextStyle(color: Colors.black),
@@ -142,12 +133,9 @@ class _CompleteProPageState extends State<Complete_Profile_Page> {
 
                       TextFormField(
                         controller: addressControler,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please enter your address";
-                          }
-                          return null;
-                        },
+                        validator: (value) => (value == null || value.isEmpty)
+                            ? 'please enter your address'
+                            : null,
                         decoration: InputDecoration(
                           labelText: "Address",
                           labelStyle: TextStyle(color: Colors.black),
@@ -176,12 +164,7 @@ class _CompleteProPageState extends State<Complete_Profile_Page> {
                 width: 330,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => OTP_Page()),
-                    );
-                  },
+                  onPressed: submit,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xfffb7a43),
                     foregroundColor: Colors.white,
@@ -194,7 +177,7 @@ class _CompleteProPageState extends State<Complete_Profile_Page> {
                 ),
               ),
 
-              SizedBox(height: 70),
+              SizedBox(height: 60),
 
               Text(
                 "By continuing your confirm that you agree\nwith our Term and Condition",

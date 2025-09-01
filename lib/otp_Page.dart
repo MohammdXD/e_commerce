@@ -11,6 +11,20 @@ class OTP_Page extends StatefulWidget {
 }
 
 class OTP_PageState extends State<OTP_Page> {
+  void submit() {
+    if (_formkey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => logIn_Page()),
+      );
+    }
+  }
+
+  final _formkey = GlobalKey<FormState>();
+  final otp1Controller = TextEditingController();
+  final otp2Controller = TextEditingController();
+  final otp3Controller = TextEditingController();
+  final otp4Controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +68,7 @@ class OTP_PageState extends State<OTP_Page> {
             SizedBox(height: 30),
 
             Form(
+              key: _formkey,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(70, 150, 30, 100),
                 child: Row(
@@ -62,6 +77,7 @@ class OTP_PageState extends State<OTP_Page> {
                       width: 50,
                       height: 150,
                       child: TextFormField(
+                        controller: otp1Controller,
                         onChanged: (value) {
                           if (value.length == 1) {
                             FocusScope.of(context).nextFocus();
@@ -82,6 +98,7 @@ class OTP_PageState extends State<OTP_Page> {
                       width: 50,
                       height: 150,
                       child: TextFormField(
+                        controller: otp2Controller,
                         onChanged: (value) {
                           if (value.length == 1) {
                             FocusScope.of(context).nextFocus();
@@ -102,6 +119,7 @@ class OTP_PageState extends State<OTP_Page> {
                       width: 50,
                       height: 150,
                       child: TextFormField(
+                        controller: otp3Controller,
                         onChanged: (value) {
                           if (value.length == 1) {
                             FocusScope.of(context).nextFocus();
@@ -122,6 +140,7 @@ class OTP_PageState extends State<OTP_Page> {
                       width: 50,
                       height: 150,
                       child: TextFormField(
+                        controller: otp4Controller,
                         onChanged: (value) {
                           if (value.length == 1) {
                             FocusScope.of(context).nextFocus();
@@ -146,12 +165,7 @@ class OTP_PageState extends State<OTP_Page> {
               width: 330,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => logIn_Page()),
-                  );
-                },
+                onPressed: submit,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xfffb7a43),
                   foregroundColor: Colors.white,
