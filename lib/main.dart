@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'package:e_commerce/Profile_page.dart';
+import 'package:e_commerce/Proudict_page.dart';
+import 'package:e_commerce/main_page.dart';
+import 'package:e_commerce/welcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'welcomePage.dart';
 
 void main() {
   runApp(myApp());
@@ -13,8 +15,9 @@ class myApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
     home: welcome_Page(),
-    //home: ProudictPage(),'
-    //home: Tabbar(),
+    //home: ProudictPage(email: ''),
+    //home: ProfilePage(),
+    //home: MainPage(),
   );
 }
 

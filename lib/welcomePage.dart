@@ -35,13 +35,14 @@ class _welcome_PageState extends State<welcome_Page> {
               style: TextStyle(fontSize: 18),
             ),
 
-            SizedBox(height: 60),
+            SizedBox(height: 100),
 
             CarouselSlider(
               options: CarouselOptions(
                 autoPlay: true,
                 autoPlayAnimationDuration: Duration(seconds: 2),
-                autoPlayCurve: Curves.easeInOut,
+                enableInfiniteScroll: false,
+                pauseAutoPlayOnManualNavigate: false,
                 onPageChanged: (index, reason) {
                   setState(() {
                     _current = index;
@@ -86,7 +87,7 @@ class _welcome_PageState extends State<welcome_Page> {
               ),
             ),
 
-            SizedBox(height: 250),
+            SizedBox(height: 200),
             SizedBox(
               width: 350,
               height: 50,

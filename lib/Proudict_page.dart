@@ -1,30 +1,19 @@
+import 'package:e_commerce/Profile_page.dart';
+import 'package:e_commerce/communities_page.dart';
+import 'package:e_commerce/favorites_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProudictPage extends StatefulWidget {
-  const ProudictPage({super.key, required this.data});
-  final String data;
+  const ProudictPage({super.key, required this.email});
+  final String email;
 
   @override
   State<ProudictPage> createState() => _ProudictPageState();
 }
 
 class _ProudictPageState extends State<ProudictPage> {
-  dynamic receivedData;
-
-  void initState() {
-    super.initState();
-    // Store the received data when widget is created
-    receivedData = widget.data;
-  }
-
   int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   final List<Map<String, dynamic>> bannerItems = [
     {
@@ -54,17 +43,19 @@ class _ProudictPageState extends State<ProudictPage> {
     },
     {
       "productImage": "assets/images/Image Popular Product 3.png",
-      "productText": "Smart Watch",
+      "productText": "Haet sport for piker - red",
       "productPrice": "\$200",
       "isFavorit": true,
     },
   ];
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
-
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -76,7 +67,7 @@ class _ProudictPageState extends State<ProudictPage> {
               backgroundColor: Colors.white,
               elevation: 0,
               title: Container(
-                width: 300,
+                padding: EdgeInsets.fromLTRB(7, 19, 0, 10),
                 child: TextField(
                   decoration: InputDecoration(
                     filled: true,
@@ -96,28 +87,35 @@ class _ProudictPageState extends State<ProudictPage> {
                 ),
               ),
               actions: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    icon: SvgPicture.asset('assets/icons/Cart Icon.svg'),
-                    onPressed: () {},
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 6, 0, 0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: SvgPicture.asset('assets/icons/Cart Icon.svg'),
+                      onPressed: () {},
+                    ),
                   ),
                 ),
                 const SizedBox(width: 15),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    icon: SvgPicture.asset('assets/icons/Bell.svg'),
-                    onPressed: () {},
+
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 6, 2, 0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: SvgPicture.asset('assets/icons/Bell.svg'),
+                      onPressed: () {},
+                    ),
                   ),
                 ),
-                const SizedBox(width: 20),
+                const SizedBox(width: 25),
               ],
             ),
 
@@ -130,7 +128,7 @@ class _ProudictPageState extends State<ProudictPage> {
                   margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Color(0xFF4b3298),
-                    border: Border.all(color: Colors.grey.shade300),
+                    border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: Column(
@@ -189,7 +187,7 @@ class _ProudictPageState extends State<ProudictPage> {
                 ),
 
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.zero,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -199,42 +197,48 @@ class _ProudictPageState extends State<ProudictPage> {
                           horizontal: 8.0,
                           vertical: 16.0,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Special for you',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Text(
-                                'See More',
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Special for you',
                                 style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.deepOrange,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
-                          ],
+                              InkWell(
+                                onTap: () {},
+                                child: Text(
+                                  'See More',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.deepOrange,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 
-                      Container(
-                        height: 150,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: bannerItems.length,
-                          itemBuilder: (context, index) {
-                            return productCard(
-                              name: bannerItems[index]['name'],
-                              brand: bannerItems[index]['brandNumber'],
-                              image: bannerItems[index]['image'],
-                            );
-                          },
+                      Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Container(
+                          height: 150,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: bannerItems.length,
+                            itemBuilder: (context, index) {
+                              return productCard(
+                                name: bannerItems[index]['name'],
+                                brand: bannerItems[index]['brandNumber'],
+                                image: bannerItems[index]['image'],
+                              );
+                            },
+                          ),
                         ),
                       ),
 
@@ -244,43 +248,49 @@ class _ProudictPageState extends State<ProudictPage> {
                           horizontal: 8.0,
                           vertical: 16.0,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Popular Products',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Text(
-                                'See More',
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Popular Products',
                                 style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.deepOrange,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
-                          ],
+                              InkWell(
+                                onTap: () {},
+                                child: Text(
+                                  'See More',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.deepOrange,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 
-                      Container(
-                        height: 275,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: products.length,
-                          itemBuilder: (context, index) {
-                            return popularProduct(
-                              productImage: products[index]['productImage'],
-                              productText: products[index]['productText'],
-                              productPrice: products[index]['productPrice'],
-                              isFavorit: products[index]['isFavorit'],
-                            );
-                          },
+                      Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Container(
+                          height: 275,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: products.length,
+                            itemBuilder: (context, index) {
+                              return popularProduct(
+                                productImage: products[index]['productImage'],
+                                productText: products[index]['productText'],
+                                productPrice: products[index]['productPrice'],
+                                isFavorit: products[index]['isFavorit'],
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -290,35 +300,6 @@ class _ProudictPageState extends State<ProudictPage> {
             ),
           ],
         ),
-      ),
-
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color(0xFFff7643),
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.grey,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.storefront), label: 'chats'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: 'updates',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_outlined),
-            label: 'Communities',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Calls',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
       ),
     );
   }
@@ -403,7 +384,7 @@ Widget popularProduct({
           ),
           child: Image.asset(productImage, width: 150, height: 150),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 5),
         Text(
           productText,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -419,12 +400,11 @@ Widget popularProduct({
                 fontWeight: FontWeight.bold,
               ),
             ),
-            CircleAvatar(
-              backgroundColor: Colors.grey[200],
-              child: Icon(
-                Icons.favorite,
-                color: isFavorit ? Colors.red : Colors.grey,
-              ),
+            IconButton(
+              onPressed: () {
+                if (isFavorit) {}
+              },
+              icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
             ),
           ],
         ),
