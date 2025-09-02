@@ -38,10 +38,7 @@ class _logIn_PageState extends State<logIn_Page> {
 
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MainPage()),
-      );
+      Navigator.pushNamed(context, '/main');
     }
   }
 

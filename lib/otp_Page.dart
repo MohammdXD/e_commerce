@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyperlink/hyperlink.dart';
 
-import 'logIn_Page.dart';
-
 class OTP_Page extends StatefulWidget {
   const OTP_Page({super.key});
 
@@ -13,10 +11,7 @@ class OTP_Page extends StatefulWidget {
 class OTP_PageState extends State<OTP_Page> {
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => logIn_Page()),
-      );
+      Navigator.pushNamed(context, '/login');
     }
   }
 

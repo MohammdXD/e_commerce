@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'Complete_Profile_Page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Register_Page extends StatefulWidget {
@@ -35,10 +34,7 @@ class _Register_PageState extends State<Register_Page> {
 
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Complete_Profile_Page()),
-      );
+      Navigator.pushNamed(context, '/complete_profile');
     }
   }
 

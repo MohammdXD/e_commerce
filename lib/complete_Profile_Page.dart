@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'OTP_Page.dart';
-
 class Complete_Profile_Page extends StatefulWidget {
   const Complete_Profile_Page({super.key});
 
@@ -13,10 +11,7 @@ class Complete_Profile_Page extends StatefulWidget {
 class _CompleteProPageState extends State<Complete_Profile_Page> {
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => OTP_Page()),
-      );
+      Navigator.pushNamed(context, '/otp');
     }
   }
 
