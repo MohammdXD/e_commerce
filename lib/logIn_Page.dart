@@ -1,4 +1,5 @@
 import 'package:e_commerce/Proudict_page.dart';
+import 'package:e_commerce/main.dart';
 import 'package:e_commerce/main_page.dart';
 import 'package:e_commerce/register_Page.dart';
 import 'forgot_Password_Page.dart';
@@ -38,7 +39,7 @@ class _logIn_PageState extends State<logIn_Page> {
 
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, '/main');
+      Navigator.pushNamed(context, AppRoutes.main);
     }
   }
 
@@ -138,12 +139,7 @@ class _logIn_PageState extends State<logIn_Page> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Forgot_Password_Page(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, AppRoutes.forgotPassword);
                     },
                   ),
                 ],
@@ -232,12 +228,7 @@ class _logIn_PageState extends State<logIn_Page> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Register_Page(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, AppRoutes.register);
                     },
                   ),
                 ],

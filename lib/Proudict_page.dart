@@ -1,8 +1,9 @@
-import 'package:e_commerce/Profile_page.dart';
-import 'package:e_commerce/communities_page.dart';
-import 'package:e_commerce/favorites_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'favorites_provider.dart';
 
 class ProudictPage extends StatefulWidget {
   const ProudictPage({super.key, required this.email});
@@ -14,6 +15,36 @@ class ProudictPage extends StatefulWidget {
 
 class _ProudictPageState extends State<ProudictPage> {
   int _selectedIndex = 0;
+  bool isLoading = true;
+  List<dynamic> products = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts();
+  }
+
+  Future<void> fetchProducts() async {
+    print('fetching data...');
+    try {
+      final url = 'https://fakestoreapi.in/api/products';
+      final uri = Uri.parse(url);
+      final response = await http.get(uri);
+      final body = response.body;
+      final jsonData = jsonDecode(body);
+
+      setState(() {
+        products = jsonData['products'];
+        isLoading = false;
+      });
+      print('Fetched data DONE');
+    } catch (e) {
+      print('Error fetching products: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   final List<Map<String, dynamic>> bannerItems = [
     {
@@ -28,27 +59,6 @@ class _ProudictPageState extends State<ProudictPage> {
     },
   ];
 
-  final List<Map<String, dynamic>> products = [
-    {
-      "productImage": "assets/images/Image Popular Product 1.png",
-      "productText": "Wireless Controller for PS4",
-      "productPrice": "\$120",
-      "isFavorit": true,
-    },
-    {
-      "productImage": "assets/images/Image Popular Product 2.png",
-      "productText": "Nike Sport White - Man Pant",
-      "productPrice": "\$80",
-      "isFavorit": false,
-    },
-    {
-      "productImage": "assets/images/Image Popular Product 3.png",
-      "productText": "Haet sport for piker - red",
-      "productPrice": "\$200",
-      "isFavorit": true,
-    },
-  ];
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -59,11 +69,10 @@ class _ProudictPageState extends State<ProudictPage> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // 👇 SliverAppBar replaces AppBar
             SliverAppBar(
               automaticallyImplyLeading: false,
-              floating: true, // appears when you scroll up
-              snap: true, // smooth snap
+              floating: true,
+              snap: true,
               backgroundColor: Colors.white,
               elevation: 0,
               title: Container(
@@ -119,7 +128,6 @@ class _ProudictPageState extends State<ProudictPage> {
               ],
             ),
 
-            // 👇 Body content as SliverList
             SliverList(
               delegate: SliverChildListDelegate([
                 Container(
@@ -191,7 +199,6 @@ class _ProudictPageState extends State<ProudictPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Popular Products section 1
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 8.0,
@@ -242,7 +249,6 @@ class _ProudictPageState extends State<ProudictPage> {
                         ),
                       ),
 
-                      // Popular Products section 2
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 8.0,
@@ -275,24 +281,21 @@ class _ProudictPageState extends State<ProudictPage> {
                         ),
                       ),
 
-                      Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Container(
-                          height: 275,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: products.length,
-                            itemBuilder: (context, index) {
-                              return popularProduct(
-                                productImage: products[index]['productImage'],
-                                productText: products[index]['productText'],
-                                productPrice: products[index]['productPrice'],
-                                isFavorit: products[index]['isFavorit'],
-                              );
-                            },
-                          ),
-                        ),
-                      ),
+                      isLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : Padding(
+                              padding: EdgeInsets.only(left: 20),
+                              child: Container(
+                                height: 275,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: products.length,
+                                  itemBuilder: (context, index) {
+                                    return ApiProduct(product: products[index]);
+                                  },
+                                ),
+                              ),
+                            ),
                     ],
                   ),
                 ),
@@ -305,7 +308,96 @@ class _ProudictPageState extends State<ProudictPage> {
   }
 }
 
-// Custom widget for the product card
+class ApiProduct extends StatefulWidget {
+  final dynamic product;
+
+  const ApiProduct({super.key, required this.product});
+
+  @override
+  State<ApiProduct> createState() => _ApiProductState();
+}
+
+class _ApiProductState extends State<ApiProduct> {
+  @override
+  Widget build(BuildContext context) {
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
+    final productId = widget.product['id'].toString();
+    final isFavorite = favoriteProvider.isFavorite(productId);
+
+    void _toggleFavorite() {
+      final productTitle = widget.product['title'] ?? 'No title';
+      final productImage = widget.product['image'] ?? '';
+      final productPrice =
+          double.tryParse(widget.product['price']?.toString() ?? '0') ?? 0;
+
+      final product = Product(
+        id: productId,
+        image: productImage,
+        title: productTitle,
+        price: productPrice,
+      );
+
+      favoriteProvider.toggleFavorite(product);
+    }
+
+    return Container(
+      width: 180,
+      margin: const EdgeInsets.only(right: 15, left: 5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+            child: Image.network(
+              widget.product['image'] ?? '',
+              width: 150,
+              height: 150,
+              errorBuilder: (context, error, stackTrace) {
+                return Icon(Icons.error, size: 50, color: Colors.grey);
+              },
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            widget.product['title'] ?? 'No title',
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '\$${widget.product['price']?.toString() ?? '0'}',
+                style: const TextStyle(
+                  color: Colors.deepOrangeAccent,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              IconButton(
+                onPressed: _toggleFavorite,
+                icon: SvgPicture.asset(
+                  isFavorite
+                      ? "assets/icons/Heart Icon_2.svg"
+                      : "assets/icons/Heart Icon.svg",
+                  color: isFavorite ? Colors.red : Colors.grey,
+                  width: 20,
+                  height: 20,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 Widget productCard({
   required String name,
   required String brand,
@@ -359,56 +451,6 @@ Widget productCard({
           ),
         ],
       ),
-    ),
-  );
-}
-
-// Custom widget for popular product
-Widget popularProduct({
-  required String productImage,
-  required String productText,
-  required String productPrice,
-  required bool isFavorit,
-}) {
-  return Container(
-    width: 180,
-    margin: EdgeInsets.only(right: 15, left: 5),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.grey[300],
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-          ),
-          child: Image.asset(productImage, width: 150, height: 150),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          productText,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              productPrice,
-              style: const TextStyle(
-                color: Colors.deepOrangeAccent,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                if (isFavorit) {}
-              },
-              icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
-            ),
-          ],
-        ),
-      ],
     ),
   );
 }

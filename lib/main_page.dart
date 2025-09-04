@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: _pages),
+      body: _pages[_selectedIndex],
       backgroundColor: Colors.white,
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.only(
@@ -50,7 +50,7 @@ class _MainPageState extends State<MainPage> {
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.storefront),
-                label: 'Store', // even if hidden
+                label: 'Store',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite_border),

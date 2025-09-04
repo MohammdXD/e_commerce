@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hyperlink/hyperlink.dart';
+import 'main.dart';
 
 class welcome_Page extends StatefulWidget {
   const welcome_Page({super.key});
@@ -91,7 +92,7 @@ class _welcome_PageState extends State<welcome_Page> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/register ');
+                  Navigator.pushNamed(context, AppRoutes.register);
                 },
                 child: Text("Continue"),
                 style: ElevatedButton.styleFrom(

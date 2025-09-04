@@ -1,3 +1,4 @@
+import 'package:e_commerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -11,7 +12,7 @@ class Complete_Profile_Page extends StatefulWidget {
 class _CompleteProPageState extends State<Complete_Profile_Page> {
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, '/otp');
+      Navigator.pushNamed(context, AppRoutes.otp);
     }
   }
 

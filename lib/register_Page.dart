@@ -1,3 +1,4 @@
+import 'package:e_commerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,7 +35,7 @@ class _Register_PageState extends State<Register_Page> {
 
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, '/complete_profile');
+      Navigator.pushNamed(context, AppRoutes.completeProfile);
     }
   }
 
