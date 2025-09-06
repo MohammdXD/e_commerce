@@ -35,7 +35,7 @@ class _Register_PageState extends State<Register_Page> {
 
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, AppRoutes.completeProfile);
+      Navigator.pushNamed(context, '/completeProfilePage');
     }
   }
 

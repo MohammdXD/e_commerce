@@ -92,7 +92,7 @@ class _welcome_PageState extends State<welcome_Page> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.register);
+                  Navigator.pushNamed(context, '/registerPage');
                 },
                 child: Text("Continue"),
                 style: ElevatedButton.styleFrom(

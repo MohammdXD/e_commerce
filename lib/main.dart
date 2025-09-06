@@ -22,19 +22,6 @@ void main() {
 }
 
 /// Centralized route names
-class AppRoutes {
-  static const welcome = '/';
-  static const main = '/main';
-  static const profile = '/profile';
-  static const product = '/product';
-  static const communities = '/communities';
-  static const completeProfile = '/complete_profile';
-  static const favorites = '/favorites';
-  static const forgotPassword = '/forgot_password';
-  static const register = '/register';
-  static const otp = '/otp';
-  static const login = '/login';
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -47,20 +34,21 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.welcome,
         routes: {
-          AppRoutes.welcome: (context) => const welcome_Page(),
-          AppRoutes.main: (context) => const MainPage(),
-          AppRoutes.profile: (context) => const ProfilePage(),
-          AppRoutes.product: (context) => const ProudictPage(email: ''),
-          AppRoutes.communities: (context) => const CommunitiesPage(),
-          AppRoutes.completeProfile: (context) => const Complete_Profile_Page(),
-          AppRoutes.favorites: (context) => const FavoritesPage(),
-          AppRoutes.forgotPassword: (context) => const Forgot_Password_Page(),
-          AppRoutes.register: (context) => const Register_Page(),
-          AppRoutes.otp: (context) => const OTP_Page(),
-          AppRoutes.login: (context) => const logIn_Page(),
+          '/welcomePage': (context) => welcome_Page(),
+          '/mainPage': (context) => MainPage(),
+          '/productPage': (context) => ProudictPage(email: ''),
+          '/loginPage': (context) => logIn_Page(),
+          '/profilePage': (context) => ProfilePage(),
+          '/communitiesPage': (context) => CommunitiesPage(),
+          '/completeProfilePage': (context) => Complete_Profile_Page(),
+          '/favoritesPage': (context) => FavoritesPage(),
+          '/forgotPasswordPage': (context) => Forgot_Password_Page(),
+          '/registerPage': (context) => Register_Page(),
+          '/otpPage': (context) => OTP_Page(),
         },
+        home: welcome_Page(),
+        //home: MainPage()
       ),
     );
   }

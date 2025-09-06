@@ -27,17 +27,25 @@ class _ProudictPageState extends State<ProudictPage> {
   Future<void> fetchProducts() async {
     print('fetching data...');
     try {
-      final url = 'https://fakestoreapi.in/api/products';
+      final url = 'https://fakestoreapi.com/products';
       final uri = Uri.parse(url);
       final response = await http.get(uri);
-      final body = response.body;
-      final jsonData = jsonDecode(body);
 
-      setState(() {
-        products = jsonData['products'];
-        isLoading = false;
-      });
-      print('Fetched data DONE');
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
+
+        if (jsonData is List) {
+          setState(() {
+            products = jsonData;
+            isLoading = false;
+          });
+          print('Fetched data DONE');
+        } else {
+          throw Exception('Unexpected JSON format: Expected a list');
+        }
+      } else {
+        throw Exception('Failed to load products: ${response.statusCode}');
+      }
     } catch (e) {
       print('Error fetching products: $e');
       setState(() {

@@ -12,7 +12,7 @@ class OTP_Page extends StatefulWidget {
 class OTP_PageState extends State<OTP_Page> {
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, AppRoutes.login);
+      Navigator.pushNamed(context, '/loginPage');
     }
   }
 

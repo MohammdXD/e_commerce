@@ -39,7 +39,7 @@ class _logIn_PageState extends State<logIn_Page> {
 
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, AppRoutes.main);
+      Navigator.pushNamed(context, '/mainPage');
     }
   }
 
@@ -139,7 +139,7 @@ class _logIn_PageState extends State<logIn_Page> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.forgotPassword);
+                      Navigator.pushNamed(context, '/forgotPasswordPage');
                     },
                   ),
                 ],
@@ -228,7 +228,7 @@ class _logIn_PageState extends State<logIn_Page> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.register);
+                      Navigator.pushNamed(context, '/registerPage');
                     },
                   ),
                 ],

@@ -12,7 +12,7 @@ class Complete_Profile_Page extends StatefulWidget {
 class _CompleteProPageState extends State<Complete_Profile_Page> {
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, AppRoutes.otp);
+      Navigator.pushNamed(context, '/otpPage');
     }
   }
 
